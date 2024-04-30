@@ -1,5 +1,10 @@
 import { hostname, networkInterfaces } from "os";
 import { ByteConverter, ENV } from "./type";
+import { CMD } from "../command/Command";
+
+export const e_ =(s:CMD)=> `_${s}`
+export const x_ =(s:CMD)=> `x_${s}`
+export const err_ =(s:CMD)=> `err_${s}`
 
 export const printAddress = () => {
   const port = env("PORT", 3000);

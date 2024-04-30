@@ -15,12 +15,14 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     /* Linting */
+    "preserveSymlinks": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true, 
     "paths": {
-      "@/*": ["./gui/*"]
+      "@/*": ["./gui/*"],
+      "@scn/*": ["./gui/react/components/ui/*"],
     }
   },
   "include": ["gui/**/*","vite.config.mts"]

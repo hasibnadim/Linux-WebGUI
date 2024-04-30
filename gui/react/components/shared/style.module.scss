@@ -1,0 +1,88 @@
+.container{
+  @apply  flex overflow-x-hidden overflow-y-auto;
+  width: 100%;
+  height:calc( 100vh - $taskbar_height - $tabbar_height)
+}
+.container_canvas{
+  @apply  flex overflow-x-hidden overflow-y-auto ;
+  background: $canvas_color;
+  flex-grow: 1;
+  > div{
+    width: 100%;
+
+  }
+}
+.sidebar{
+  background: $sidebar_color;
+  width: $sidebar_width;
+  height: calc(100vh - $taskbar_height - $tabbar_height);
+  overflow-y: auto;
+}
+
+.taskbar {
+  background: $taskbar_color;
+   height: $taskbar_height;
+   .nav {
+     @apply flex items-center;
+     height: $taskbar_height;
+     a {
+       @apply px-2 m-0 font-light font-sans text-white inline-flex hover:underline;
+       &.logo {
+         @apply hover:no-underline text-2xl font-bold text-blue-400  mx-2 px-0.5 rounded-sm;
+         &:hover{
+           @apply text-blue-800 bg-blue-50;
+         }
+       }
+     }
+   }
+ }
+ 
+ .tabbar {
+   @apply bg-blue-500 flex justify-start items-center;
+   width: 100%; 
+   height: $tabbar_height;
+ 
+   .tab_btns {
+     @apply flex items-center justify-start;
+     a {
+       @apply text-white inline-block hover:bg-blue-400 ;
+       padding: 4px 4px;
+       &.active{
+         @apply bg-blue-50 text-blue-800
+       }
+     }
+     button{
+       @apply text-white border-l last:border-r text-xs cursor-pointer hover:bg-blue-700;
+       padding: 3px 4px;
+       &.active{
+        @apply  text-blue-800 text-sm; 
+        background: $canvas_color;
+      }
+     }
+   }
+ }
+ 
+ .icons_container {
+   @apply flex justify-between items-center pl-1 border-r border-gray-600 bg-blue-500;
+   width: $sidebar_width;
+   svg {
+     @apply text-white px-1 rounded-sm cursor-pointer hover:bg-blue-700; 
+   }
+   .search_box {
+     @apply flex justify-center items-center w-full px-1;
+     input {
+       width: 100%;
+       background: none;
+       outline: none;
+       border: none;
+       font-size: smaller;
+       color: whitesmoke;
+     }
+     button {
+       background: none;
+       outline: none;
+       border: none;
+     }
+   }
+ }
+ 

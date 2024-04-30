@@ -1,36 +1,37 @@
 import { connectIo } from "@/socket/io";
 import { useEffect, useState } from "react";
+import { Outlet, RouterProvider, useOutlet } from "react-router-dom";
+import routes from "@/react/routes.tsx";
+import TaskBar from "@/react/components/shared/TaskBar";
+import Login from "./components/Login";
+import style from './components/shared/style.module.scss'
+import { cn } from "@/lib/utils";
+export const RootRouter = () => {
+  const [ioConnected, setIoConnected] = useState(false);
+  const isOutlet = useOutlet();
 
-const App = () => {
-  const [list, setlist] = useState<string[]>([]);
-  const [input, setinput] = useState("");
   useEffect(() => {
-    connectIo();
+    connectIo(setIoConnected,{username:"debian",password:"141541"});
   }, []);
+  if (!ioConnected) {
+    return (
+      <div>
+        <Login />
+      </div>
+    );
+  }
   return (
-    <div>
-      <button
-        onClick={() => {
-          window.io.emit("ping", input);
-          window.io.once("pong", (data) => {
-            setlist([...list, data]);
-          });
-        }}
-      >
-        Add item
-      </button>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setinput(e.target.value)}
-      />
-      <ul>
-        {list.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-    </div>
+    <>
+     {isOutlet? <Outlet />:<div className={cn(style.container,'bg-blue-950 text-white')}>
+      <h1 className="text-3xl m-4 text-center w-full">Welcome to Linux WebGUI</h1>
+      </div>}
+      <TaskBar />
+      {/*<Toaster/>*/}
+    </>
   );
+};
+const App = () => {
+  return <RouterProvider router={routes()} />;
 };
 
 export default App;
