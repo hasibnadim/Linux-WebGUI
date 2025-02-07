@@ -5,17 +5,14 @@ export interface INavItem {
 
 
 const navValue: Array<INavItem> = [
-    {
-        name: "Hardware",
-        path: "/hardware",
-    },
+   
     {
         name: "Software",
         path: "/"
     },
     {
-        name: "File Manager",
-        path: "/"
+        name: "Hardware",
+        path: "/hardware",
     },
     {
         name: "Network",

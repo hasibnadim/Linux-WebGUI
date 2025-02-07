@@ -18,11 +18,11 @@ export const hardwareMenus: INavItem[] = [
   {
     path: "disk",
     name: "Disk/Storage",
-  }, 
+  },
   {
-    path:"devices",
-    name:"Devices"
-  }
+    path: "devices",
+    name: "Devices",
+  },
 ];
 
 export const hardwareRoutes = () => (
