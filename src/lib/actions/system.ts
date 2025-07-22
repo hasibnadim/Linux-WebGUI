@@ -55,7 +55,7 @@ export async function getCPUInfo(credentials: SSHCredentials): Promise<ServerAct
     const ssh = await createSSHConnection(credentials);
     const { stdout } = await ssh.execCommand('lscpu');
     
-    const cpuData = parseCPUOutput(stdout) as CPUInfo;
+    const cpuData = parseCPUOutput(stdout) as unknown as CPUInfo;
     ssh.dispose();
     
     return { success: true, data: cpuData };
