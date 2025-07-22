@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import webpack from 'webpack';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -7,22 +8,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "10gb",
     },
-  },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        "cpu-features": false,
-        fs: false,
-        net: false,
-        tls: false,
-        child_process: false,
-        crypto: false,
-        ssh2: false,
-      };
-    }
-    return config;
-  },
+  }
 };
 
 export default nextConfig;

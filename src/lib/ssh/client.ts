@@ -1,77 +1,55 @@
-'use server';
-import { Client, SFTPWrapper } from 'ssh2';
-import { SSHCredentials } from '@/lib/types';
+"use server"; 
+import { SSHCredentials } from "@/lib/types";
+import { NodeSSH } from "node-ssh";
 
- class SSHClient {
-  private conn: Client;
+class SSHClient {
+  private conn: NodeSSH;
 
   constructor(private credentials: SSHCredentials) {
-    this.conn = new Client();
-  }
-
-  async connect(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.conn.connect({
+    this.conn = new NodeSSH();
+    this.conn.connect({
         host: this.credentials.host,
         port: this.credentials.port,
         username: this.credentials.username,
         password: this.credentials.password,
         privateKey: this.credentials.privateKey,
         passphrase: this.credentials.passphrase,
-      });
+      }); 
+  }
 
-      this.conn.on('ready', () => {
-        resolve();
-      });
+ 
 
-      this.conn.on('error', (err) => {
+  async execCommand(
+    command: string
+  ): Promise<{ stdout: string; stderr: string }> {
+    return new Promise((resolve, reject) => {
+      this.conn.execCommand(command, {
+        onStdout: (data) => {
+          resolve({ stdout: data.toString(), stderr: "" });
+        },
+        onStderr: (data) => {
+          resolve({ stdout: "", stderr: data.toString() });
+        },
+      });
+    });
+  }
+
+  async requestSFTP(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.conn.requestSFTP().then((sftp) => {
+        resolve(sftp);
+      }).catch((err) => {
         reject(err);
       });
     });
   }
 
-  async execCommand(command: string): Promise<{ stdout: string; stderr: string }> {
-    return new Promise((resolve, reject) => {
-      this.conn.exec(command, (err, stream) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        let stdout = '';
-        let stderr = '';
-
-        stream
-          .on('data', (data: Buffer) => {
-            stdout += data.toString();
-          })
-          .stderr.on('data', (data: Buffer) => {
-            stderr += data.toString();
-          });
-
-        stream.on('close', () => {
-          resolve({ stdout, stderr });
-        });
-      });
-    });
-  }
-
-  async requestSFTP(): Promise<SFTPWrapper> {
-    return new Promise((resolve, reject) => {
-      this.conn.sftp((err, sftp) => {
-        if (err) reject(err);
-        else resolve(sftp);
-      });
-    });
-  }
-
- async dispose() {
-    await this.conn.end();
+  async dispose() {
+    await this.conn.dispose();
   }
 }
 
 export async function createSSHConnection(credentials: SSHCredentials) {
-  const client = new SSHClient(credentials);
-  await client.connect();
+  const client = new SSHClient(credentials); 
   return client;
 }

@@ -1,11 +1,11 @@
 'use server'
-
-import { createSSHConnection } from "../ssh/client";
+ 
+import { sshClient } from "../ssh/client2";
 import { ServerActionResult, SSHCredentials } from "../types";
 
 export async function getHostDomainInfo(credentials: SSHCredentials): Promise<ServerActionResult<{ hostname: string; domain: string; ip: string }>> {
     try {
-      const ssh = await createSSHConnection(credentials);
+      const ssh = await sshClient(credentials);
       const { stdout: hostname } = await ssh.execCommand('hostname');
       const { stdout: domain } = await ssh.execCommand('hostname -d');
       const { stdout: ip } = await ssh.execCommand("hostname -I | awk '{print $1}'");
