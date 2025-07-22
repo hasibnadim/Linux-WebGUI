@@ -59,35 +59,7 @@ A modern web-based GUI for managing Linux servers remotely via SSH. Built with N
 - **Next.js + SWC**: The project uses SWC for transpilation and Webpack for bundling. No extra Webpack config is needed unless you see errors about Node modules (see Troubleshooting).
 
 ---
-
-## Troubleshooting
-
-### "Module not found: Can't resolve 'cpu-features'" or similar errors
-- This means a Node-only module is being bundled for the browser. Make sure all SSH/system code is only imported in server actions or API routes.
-- If you still see this error, add the following to your `next.config.js`:
-  ```js
-  module.exports = {
-    webpack: (config, { isServer }) => {
-      if (!isServer) {
-        config.resolve.fallback = {
-          ...config.resolve.fallback,
-          'cpu-features': false,
-          'fs': false,
-          'net': false,
-          'tls': false,
-          'child_process': false,
-        };
-      }
-      return config;
-    },
-  };
-  ```
-
-### "UNKNOWN: unknown error, open ...pages-manifest.json"
-- Stop all dev/build processes.
-- Delete `.next` and `node_modules` folders and `package-lock.json`.
-- Run `npm install` and try again.
-
+ 
 ### File upload not working
 - Make sure the file is under 10GB.
 - Check your server's available disk space.
