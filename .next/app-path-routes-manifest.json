@@ -1,0 +1,17 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/ssh-login/page": "/ssh-login",
+  "/xssh/filemanager/page": "/xssh/filemanager",
+  "/xssh/page": "/xssh",
+  "/xssh/security/host-domain/page": "/xssh/security/host-domain",
+  "/xssh/software/applications/page": "/xssh/software/applications",
+  "/xssh/security/url-port/page": "/xssh/security/url-port",
+  "/xssh/software/packages/page": "/xssh/software/packages",
+  "/xssh/software/software/page": "/xssh/software/software",
+  "/xssh/system/cpu/page": "/xssh/system/cpu",
+  "/xssh/system/disk/page": "/xssh/system/disk",
+  "/xssh/system/memory/page": "/xssh/system/memory",
+  "/xssh/system/network/page": "/xssh/system/network"
+}
