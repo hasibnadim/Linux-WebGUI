@@ -6,4 +6,4 @@ executable
 .env
 
 .idea
-.next
+.next/
